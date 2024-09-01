@@ -1,6 +1,7 @@
 package baylinux01.fileUploadAndDownloadProject.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -49,23 +50,37 @@ public class FileController {
 	@GetMapping("/downloadFileSlow")
 	ResponseEntity<Resource> downloadFileSlow(@RequestParam("fileName") String fileName) throws IOException
 	{
-		File fileToBeDownloaded=fileTransferService.getFileToBeDownloaded(fileName);
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName+"\"")
-				.contentLength(fileToBeDownloaded.length())
-				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.body(new InputStreamResource(Files.newInputStream(fileToBeDownloaded.toPath())));
+		try {
+			File fileToBeDownloaded=fileTransferService.getFileToBeDownloaded(fileName);
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName+"\"")
+					.contentLength(fileToBeDownloaded.length())
+					.contentType(MediaType.APPLICATION_OCTET_STREAM)
+					.body(new InputStreamResource(Files.newInputStream(fileToBeDownloaded.toPath())));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.notFound().build();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@GetMapping("/downloadFileFaster")
-	ResponseEntity<Resource> downloadFileFaster(@RequestParam("fileName") String fileName) throws IOException
+	ResponseEntity<Resource> downloadFileFaster(@RequestParam("fileName") String fileName) 
 	{
-		File fileToBeDownloaded=fileTransferService.getFileToBeDownloaded(fileName);
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName+"\"")
-				.contentLength(fileToBeDownloaded.length())
-				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.body(new FileSystemResource(fileToBeDownloaded));
+		try {
+			File fileToBeDownloaded=fileTransferService.getFileToBeDownloaded(fileName);
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName+"\"")
+					.contentLength(fileToBeDownloaded.length())
+					.contentType(MediaType.APPLICATION_OCTET_STREAM)
+					.body(new FileSystemResource(fileToBeDownloaded));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }
