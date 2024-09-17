@@ -1,10 +1,10 @@
-package baylinux01.fileUploadAndDownloadProject;
+package baylinux01.fileUploadAndDownload;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FileUploadAndDownloadProjectApplicationTests {
+class FileUploadAndDownloadApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package baylinux01.fileUploadAndDownloadProject.controllers;
+package baylinux01.fileUploadAndDownload.controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import baylinux01.fileUploadAndDownloadProject.services.FileTransferService;
+import baylinux01.fileUploadAndDownload.services.FileTransferService;
 
 @CrossOrigin
 @RequestMapping("/files")
